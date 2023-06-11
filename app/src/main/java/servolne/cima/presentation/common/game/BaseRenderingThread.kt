@@ -7,17 +7,18 @@ import servolne.cima.presentation.utils.time
 abstract class BaseRenderingThread(
     private val redrawTime: Long = Constants.RedrawTime,
     private val holder: SurfaceHolder
-) : Thread() {
+) : Thread(), RenderTimeController {
 
     private var isRunning: Boolean = false
-    protected var startGameTime: Long = 0L
-    protected var lastRenderingTime: Long = 0L
+    override var startGameTime: Long = 0L
+    override var lastRenderingTime: Long = 0L
+    override var currentFrame: Int = 0
 
-    fun pauseRender() {
+    override fun pauseRender() {
         isRunning = false
     }
 
-    fun startRender() {
+    override fun startRender() {
         isRunning = true
     }
 
@@ -39,6 +40,7 @@ abstract class BaseRenderingThread(
         val canvas = holder.lockCanvas()
         canvas.render()
         holder.unlockCanvasAndPost(canvas)
+        currentFrame++
     }
 
     protected abstract fun Canvas.render()

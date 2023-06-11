@@ -1,2 +1,1 @@
-# SportQuiz
-Test cloaking app imitate sport quiz
+# Base of cloaking game 

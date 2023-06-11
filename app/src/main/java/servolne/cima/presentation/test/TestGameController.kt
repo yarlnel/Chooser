@@ -1,6 +1,6 @@
 package servolne.cima.presentation.test
 
-class TestGameController(
+class TestGameViewModel(
     private val width: Int,
     private val height: Int
 ) {
