@@ -10,9 +10,9 @@ data class TestGameState(
 ) {
 
     class Gem(
-        x: Int,
-        y: Int,
-        color: Color
+        var x: Int,
+        var y: Int,
+        val color: Color
     ) {
         enum class Color {
             YELLOW, RED, GREEN, BLUE
