@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
+import kotlinx.coroutines.flow.collect
 import servolne.cima.presentation.common.game.BaseGameView
 
 class TestGameView @JvmOverloads constructor(
@@ -13,9 +14,8 @@ class TestGameView @JvmOverloads constructor(
 ) : BaseGameView(context, attrs) {
 
     private val assetsLoader = TestGameAssetsLoader(resources)
-
-    private val viewModel = TestGameViewModel(assetsLoader)
-
+    var viewModel = TestGameViewModel(assetsLoader)
+        private set
 
     override fun onSurfaceCreated() {
         viewModel.setGameSize(width, height)
@@ -35,5 +35,10 @@ class TestGameView @JvmOverloads constructor(
             MotionEvent.ACTION_DOWN -> viewModel.onTouchDown(event.x, event.y)
         }
         return true
+    }
+
+    fun newGame() {
+        viewModel.clean()
+        resumeGame()
     }
 }

@@ -7,4 +7,6 @@
     </string>
     <string name="go_home">Return to home page</string>
     <string name="losse_gems_template">%1$d/10</string>
+    <string name="resume_game">Resume Game</string>
+    <string name="score_template">Score: %1$d</string>
 </resources>

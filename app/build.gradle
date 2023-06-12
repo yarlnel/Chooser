@@ -49,6 +49,7 @@ dependencies {
     implementation 'com.github.terrakok:cicerone:6.6'
     runtimeOnly 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.0'
 
+    implementation "androidx.fragment:fragment-ktx:1.5.7"
     implementation 'org.orbit-mvi:orbit-viewmodel:6.0.0'
     implementation "com.google.dagger:dagger:$daggerVersion"
     implementation "com.google.dagger:dagger-android:$daggerVersion"

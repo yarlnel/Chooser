@@ -4,6 +4,7 @@ import android.graphics.PointF
 import android.graphics.Rect
 import android.graphics.RectF
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import servolne.cima.presentation.common.game.RenderViewModel
 
@@ -64,6 +65,12 @@ class TestGameViewModel(
         if (currentFrame % 500 == 0) {
             framesToNewGem -= 1
         }
+
+        if (state.gemLoose >= 10) {
+            postSideEffect(TestGameSideEffect.GameFinished(
+                score = state.score
+            ))
+        }
     }
 
     fun onMove(x: Float, y: Float) = intent {
@@ -121,5 +128,11 @@ class TestGameViewModel(
                 gems = state.gems + newGem
             )
         }
+    }
+
+    fun clean() = intent{
+        deltaY = (height * 0.02).toInt()
+        framesToNewGem = 56
+        reduce { TestGameState() }
     }
 }

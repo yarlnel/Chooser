@@ -91,9 +91,6 @@ class MainActivity : DaggerAppCompatActivity() {
         val prefs = getPreferences(MODE_PRIVATE)
         val config = Firebase.remoteConfig
 
-        navigateToCloaka()
-        return
-
         config.fetchAndActivate().addOnCompleteListener { task ->
             if (!task.isSuccessful) return@addOnCompleteListener
 

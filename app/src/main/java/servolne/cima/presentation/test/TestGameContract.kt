@@ -2,7 +2,12 @@ package servolne.cima.presentation.test
 
 import android.graphics.PointF
 
-sealed interface TestGameSideEffect
+sealed interface TestGameSideEffect {
+
+    data class GameFinished(
+        val score: Int
+    ) : TestGameSideEffect
+}
 
 data class TestGameState(
     val gems: List<Gem> = emptyList(),

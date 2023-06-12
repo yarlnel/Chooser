@@ -10,7 +10,7 @@ abstract class BaseGameView(
     attrs: AttributeSet?
 ) : SurfaceView(context, attrs) {
 
-    abstract val renderingThread: BaseRenderingThread
+    protected abstract val renderingThread: BaseRenderingThread
 
     private val surfaceHolderCallback = object : SurfaceHolder.Callback {
 
@@ -40,6 +40,14 @@ abstract class BaseGameView(
     protected open fun onSurfaceCreated() {}
     protected open fun onSurfaceChanged() {}
     protected open fun onSurfaceDestroyed() {}
+
+    fun pauseGame() {
+        renderingThread.pauseRender()
+    }
+
+    fun resumeGame() {
+        renderingThread.startRender()
+    }
 
     init {
         holder.addCallback(surfaceHolderCallback)
