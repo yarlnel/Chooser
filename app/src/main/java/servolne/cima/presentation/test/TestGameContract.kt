@@ -6,7 +6,9 @@ sealed interface TestGameSideEffect
 
 data class TestGameState(
     val gems: List<Gem> = emptyList(),
-    val line: Line = Line()
+    val line: Line = Line(),
+    val score: Int = 0,
+    val gemLoose: Int = 0
 ) {
 
     class Gem(

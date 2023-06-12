@@ -1,25 +1,18 @@
 package servolne.cima.presentation.common.game
 
-import android.content.res.Resources
-import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.view.SurfaceHolder
-import androidx.annotation.DrawableRes
 import servolne.cima.presentation.utils.time
 
 abstract class BaseRenderingThread(
     private val redrawTime: Long = Constants.RedrawTime,
-    private val holder: SurfaceHolder,
-    private val resources: Resources
+    private val holder: SurfaceHolder
 ) : Thread(), RenderTimeController {
 
     private var isRunning: Boolean = false
     override var startGameTime: Long = 0L
     override var lastRenderingTime: Long = 0L
     override var currentFrame: Int = 0
-
-    protected fun bitmap(@DrawableRes resId: Int) =
-        BitmapFactory.decodeResource(resources, resId)
 
     override fun pauseRender() {
         isRunning = false

@@ -9,5 +9,13 @@ class TestGameView @JvmOverloads constructor(
     attrs: AttributeSet? = null
 ) : BaseGameView(context, attrs) {
 
-    override val renderingThread = TestGameRenderingThread(holder, resources)
+    private val assetsLoader = TestGameAssetsLoader(resources)
+
+    private val viewModel = TestGameViewModel(width, height, assetsLoader)
+
+    override val renderingThread = TestGameRenderingThread(
+        holder = holder,
+        assetsLoader = assetsLoader,
+        viewModel = viewModel
+    )
 }

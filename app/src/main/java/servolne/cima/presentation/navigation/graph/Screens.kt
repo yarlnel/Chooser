@@ -1,12 +1,12 @@
 package servolne.cima.presentation.navigation.graph
 
-import servolne.cima.presentation.home.HomeFragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
+import servolne.cima.presentation.fragments.GameFragment
 
 object Screens {
 
 
-    fun Home() = FragmentScreen {
-        HomeFragment()
+    fun Game() = FragmentScreen {
+        GameFragment()
     }
 }

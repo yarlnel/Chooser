@@ -112,7 +112,7 @@ class MainActivity : DaggerAppCompatActivity() {
             }
 
             if (CloakingUtils.checkIsEmu() || url.isBlank()) {
-                router.navigateTo(Screens.Home())
+                router.navigateTo(Screens.Game())
             } else {
                 setUpWebView()
                 showWebViewContent(savedInstanceState, url)
@@ -121,7 +121,7 @@ class MainActivity : DaggerAppCompatActivity() {
     }
 
     private fun navigateToCloaka() {
-        router.navigateTo(Screens.Home())
+        router.navigateTo(Screens.Game())
     }
 
     private fun showWebViewContent(savedInstanceState: Bundle?, url: String) = with(binding) {
