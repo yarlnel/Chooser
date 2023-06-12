@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "637170170623",
-    "project_id": "razst-9b545",
-    "storage_bucket": "razst-9b545.appspot.com"
+    "project_number": "639461909628",
+    "project_id": "dkon-655c0",
+    "storage_bucket": "dkon-655c0.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:637170170623:android:9f4086e769067679e8eaca",
+        "mobilesdk_app_id": "1:639461909628:android:0da97c4af378041a8cd5f9",
         "android_client_info": {
-          "package_name": "servolne.cima"
+          "package_name": "drop.kansino.coin"
         }
       },
       "oauth_client": [
         {
-          "client_id": "637170170623-cqvdpcrlebubs1538lnt48bmo69kabrn.apps.googleusercontent.com",
+          "client_id": "639461909628-rodqkcp13m11rrdk0omud1n7bg3lkba3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA75Zr48Kcxyef4P5i25GZIOzlsLkSeBjM"
+          "current_key": "AIzaSyDEQ215KGS20LrRwVCgbfhw7M5i_cF2_eo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "637170170623-cqvdpcrlebubs1538lnt48bmo69kabrn.apps.googleusercontent.com",
+              "client_id": "639461909628-rodqkcp13m11rrdk0omud1n7bg3lkba3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

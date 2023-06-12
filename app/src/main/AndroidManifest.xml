@@ -20,11 +20,11 @@
         android:theme="@style/Theme.SportQuiz"
         android:usesCleartextTraffic="true"
         android:exported="true"
-        android:name="servolne.cima.App"
+        android:name="drop.kansino.coin.App"
         tools:targetApi="31">
 
         <activity
-            android:name="servolne.cima.presentation.MainActivity"
+            android:name="drop.kansino.coin.presentation.MainActivity"
             android:configChanges="orientation|screenSize"
             android:exported="true">
             <intent-filter>
