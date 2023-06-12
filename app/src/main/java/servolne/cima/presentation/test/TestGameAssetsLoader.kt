@@ -14,4 +14,5 @@ class TestGameAssetsLoader(
     val yellowGem by lazyBitmap(R.drawable.bril_yellow)
     val blueGem by lazyBitmap(R.drawable.brill_blue)
 
+    val background by lazyBitmap(R.drawable.background)
 }

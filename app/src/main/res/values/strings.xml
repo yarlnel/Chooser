@@ -6,4 +6,5 @@
         %1$s!\n\nYou finished that section with %2$d/%3$d score
     </string>
     <string name="go_home">Return to home page</string>
+    <string name="losse_gems_template">%1$d/10</string>
 </resources>

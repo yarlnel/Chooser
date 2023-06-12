@@ -1,38 +1,78 @@
 package servolne.cima.presentation.test
 
 import android.content.res.Resources
+import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
-import android.util.Log
 import android.view.SurfaceHolder
+import androidx.core.graphics.scale
+import servolne.cima.R
 import servolne.cima.presentation.common.game.ViewModelRenderingThread
 
 class TestGameRenderingThread(
     holder: SurfaceHolder,
     viewModel: TestGameViewModel,
     private val assetsLoader: TestGameAssetsLoader,
-    private val resources: Resources
+    private val resources: Resources,
 ) : ViewModelRenderingThread<TestGameState, TestGameSideEffect>(
     holder = holder,
     viewModel = viewModel
 ) {
 
-    override fun Canvas.render() {
-        drawColor(Color.BLUE)
-        renderGems()
-        renderLine()
-    }
-
-    private val drawablePaint by lazy {
+    private val bitmapPaint by lazy {
         Paint(Paint.DITHER_FLAG)
     }
 
-    private val textPaint = Paint().apply{
-        style = Paint.Style.FILL
-        textSize = 50f
-        color = Color.WHITE
+    override fun Canvas.render() {
+        renderBackground()
+        renderGems()
+        renderLine()
+        renderScore()
+        renderLooseGems()
+    }
+
+    private var backgroundBitmap: Bitmap? = null
+
+    private fun Canvas.renderBackground() {
+        if (backgroundBitmap == null) {
+            backgroundBitmap = assetsLoader.background.scale(width, height)
+        }
+        drawBitmap(backgroundBitmap!!, 0f,0f, bitmapPaint)
+    }
+    private val defaultTextSize by lazy {
+        resources.getDimension(R.dimen.default_text_size)
+    }
+
+    private val textPaint by lazy {
+        Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            textSize = defaultTextSize
+            color = Color.WHITE
+            style = Paint.Style.FILL
+        }
+    }
+
+    private fun Canvas.renderScore() {
+        val text = state.score.toString()
+        drawText(
+            text,
+            20f,
+            defaultTextSize + 20f,
+            textPaint
+        )
+    }
+
+    private fun Canvas.renderLooseGems() {
+        val text = resources.getString(R.string.losse_gems_template, state.gemLoose)
+        val textWidth = textPaint.measureText(text)
+
+        drawText(
+            text,
+            width - (textWidth + 20f),
+            defaultTextSize + 20f,
+            textPaint
+        )
     }
 
     private val linePaint = Paint().apply {
@@ -54,13 +94,6 @@ class TestGameRenderingThread(
     }
 
     private fun Canvas.renderGems() {
-        drawText("Gems{${state.gems.size}}", 20f,100f,Paint().apply{
-            style = Paint.Style.FILL
-            textSize = 50f
-            color = Color.WHITE
-        })
-
-
         for (gem in state.gems) {
             val gemBitmap = when(gem.color) {
                 TestGameState.Gem.Color.GREEN -> assetsLoader.greenGem
@@ -73,7 +106,7 @@ class TestGameRenderingThread(
                 gemBitmap,
                 gem.x.toFloat(),
                 gem.y.toFloat(),
-                drawablePaint
+                bitmapPaint
             )
         }
     }

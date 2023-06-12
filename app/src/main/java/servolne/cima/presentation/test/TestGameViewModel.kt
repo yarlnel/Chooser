@@ -1,11 +1,14 @@
 package servolne.cima.presentation.test
+
 import android.graphics.PointF
+import android.graphics.Rect
+import android.graphics.RectF
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import servolne.cima.presentation.common.game.RenderViewModel
 
 class TestGameViewModel(
-    private val assetsLoader: TestGameAssetsLoader
+    private val assetsLoader: TestGameAssetsLoader,
 ) : RenderViewModel<TestGameState, TestGameSideEffect>(TestGameState()) {
     private var width: Int = 0
     private var height: Int = 0
@@ -28,20 +31,30 @@ class TestGameViewModel(
     }
 
     override fun onFrame() = intent {
-        val linePoints = state.linePoints.toMutableList().apply {
-            if (state.linePoints.size > 1) removeFirst()
-        }
-
         reduce {
-            state.copy(linePoints = linePoints)
+            state.copy(
+                linePoints = state.linePoints.drop(
+                    1 + (state.linePoints.size / 5)
+                ),
+                gems = state.gems.map { gem ->
+                    gem.apply { y += deltaY }
+                }
+            )
         }
 
-        val newGems = state.gems.map { gem ->
-            gem.apply { y += deltaY }
-        }
-
-        reduce {
-            state.copy(gems = newGems)
+        for (gem in state.gems) {
+            if (gem.y >= height + gemHeight) {
+                val newGems = state.gems.toMutableList().apply {
+                    remove(gem)
+                }
+                reduce {
+                    state.copy(
+                        gems = newGems,
+                        gemLoose = state.gemLoose + 1
+                    )
+                }
+                break
+            }
         }
 
         if (currentFrame % framesToNewGem == 0) {
@@ -54,10 +67,33 @@ class TestGameViewModel(
     }
 
     fun onMove(x: Float, y: Float) = intent {
+        verifyLineIntersectGem(x, y)
         reduce {
             state.copy(
-                linePoints = state.linePoints + PointF(x, y)
+                linePoints = state.linePoints.toMutableList() + PointF(x, y)
             )
+        }
+    }
+
+    private fun verifyLineIntersectGem(x: Float, y: Float) = intent {
+        for (gem in state.gems) {
+            val gemRect = Rect(
+                gem.x,
+                gem.y,
+                gem.x + gemWidth,
+                gem.y + gemHeight
+            )
+            if (gemRect.contains(x.toInt(), y.toInt())) {
+                val newGems = state.gems.toMutableList().apply {
+                    remove(gem)
+                }
+                reduce {
+                    state.copy(
+                        gems = newGems,
+                        score = state.score + 1
+                    )
+                }
+            }
         }
     }
 
