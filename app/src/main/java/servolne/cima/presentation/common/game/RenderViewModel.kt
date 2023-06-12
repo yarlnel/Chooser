@@ -15,10 +15,10 @@ abstract class RenderViewModel<STATE : Any, SIDE_EFFECT : Any>(
     override val container = container<STATE, SIDE_EFFECT>(initState)
 
     protected var currentFrame: Int = 0
-    open fun handleNewFrame() : Job = intent {
+    fun handleNewFrame() : Job = intent {
         onFrame()
         currentFrame++
     }
 
-    abstract fun onFrame() : Job
+    protected abstract fun onFrame() : Job
 }

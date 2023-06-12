@@ -15,13 +15,17 @@ abstract class BaseGameView(
     private val surfaceHolderCallback = object : SurfaceHolder.Callback {
 
         override fun surfaceCreated(p0: SurfaceHolder) {
+            onSurfaceCreated()
             renderingThread.start()
             renderingThread.startRender()
         }
 
-        override fun surfaceChanged(p0: SurfaceHolder, p1: Int, p2: Int, p3: Int) {}
+        override fun surfaceChanged(p0: SurfaceHolder, p1: Int, p2: Int, p3: Int) {
+            onSurfaceChanged()
+        }
 
         override fun surfaceDestroyed(p0: SurfaceHolder) {
+            onSurfaceDestroyed()
             renderingThread.pauseRender()
             var retry = true
             while (retry) {
@@ -32,6 +36,10 @@ abstract class BaseGameView(
             }
         }
     }
+
+    protected open fun onSurfaceCreated() {}
+    protected open fun onSurfaceChanged() {}
+    protected open fun onSurfaceDestroyed() {}
 
     init {
         holder.addCallback(surfaceHolderCallback)

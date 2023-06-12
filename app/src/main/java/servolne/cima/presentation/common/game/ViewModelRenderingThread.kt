@@ -4,6 +4,8 @@ import android.view.SurfaceHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 abstract class ViewModelRenderingThread<STATE : Any, SIDE_EFFECT : Any>(
     holder: SurfaceHolder,
@@ -14,6 +16,13 @@ abstract class ViewModelRenderingThread<STATE : Any, SIDE_EFFECT : Any>(
 
     protected val state: STATE get() = viewModel.container.stateFlow.value
 
+    init {
+//        launch {
+//            viewModel.container.stateFlow.collectLatest(::handleState)
+//            viewModel.container.sideEffectFlow.collect(::handleSideEffect)
+//        }
+    }
+
     protected open fun handleSideEffect(sideEffect: SIDE_EFFECT) {}
     protected open fun handleState(state: STATE) {}
 
@@ -23,5 +32,10 @@ abstract class ViewModelRenderingThread<STATE : Any, SIDE_EFFECT : Any>(
 
     fun cancel() {
         job.cancel()
+    }
+
+    override fun onFrame() {
+        super.onFrame()
+        viewModel.handleNewFrame()
     }
 }

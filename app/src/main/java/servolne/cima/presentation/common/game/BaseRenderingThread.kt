@@ -36,7 +36,7 @@ abstract class BaseRenderingThread(
         }
     }
 
-    protected fun onFrame() {
+    protected open fun onFrame() {
         val canvas = holder.lockCanvas()
         canvas.render()
         holder.unlockCanvasAndPost(canvas)

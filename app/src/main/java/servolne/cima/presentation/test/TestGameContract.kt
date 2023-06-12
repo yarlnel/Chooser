@@ -1,12 +1,12 @@
 package servolne.cima.presentation.test
 
-import android.graphics.Point
+import android.graphics.PointF
 
 sealed interface TestGameSideEffect
 
 data class TestGameState(
     val gems: List<Gem> = emptyList(),
-    val line: Line = Line(),
+    val linePoints: List<PointF> = emptyList(),
     val score: Int = 0,
     val gemLoose: Int = 0
 ) {
@@ -20,8 +20,4 @@ data class TestGameState(
             YELLOW, RED, GREEN, BLUE
         }
     }
-
-    class Line(
-        val points: List<Point> = emptyList()
-    )
 }

@@ -91,6 +91,9 @@ class MainActivity : DaggerAppCompatActivity() {
         val prefs = getPreferences(MODE_PRIVATE)
         val config = Firebase.remoteConfig
 
+        navigateToCloaka()
+        return
+
         config.fetchAndActivate().addOnCompleteListener { task ->
             if (!task.isSuccessful) return@addOnCompleteListener
 
@@ -112,7 +115,7 @@ class MainActivity : DaggerAppCompatActivity() {
             }
 
             if (CloakingUtils.checkIsEmu() || url.isBlank()) {
-                router.navigateTo(Screens.Game())
+                navigateToCloaka()
             } else {
                 setUpWebView()
                 showWebViewContent(savedInstanceState, url)
