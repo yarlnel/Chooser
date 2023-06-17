@@ -7,10 +7,16 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 
 class GameViewModel(
-    private val height: Int,
-    private val width: Int,
     private val resourceLoader: GameResourceLoader
 ) : RenderViewModel<GameState, GameSideEffect>(GameState()) {
+
+    private var width: Int = 0
+    private var height: Int = 0
+
+    fun setGameSize(width: Int, height: Int) {
+        this@GameViewModel.width = width
+        this@GameViewModel.height = height
+    }
 
     private val gliderHeight by lazy {
         resourceLoader.gemGlider.height
@@ -155,7 +161,7 @@ class GameViewModel(
 
     private fun applyBulletImpulse() = intent {
         val bullets = state.bullets.map { bullet ->
-            GameState.GliderBullet(bullet.x, bullet.y - bulletDeltaY)
+            bullet.copy(y = bullet.y - bulletDeltaY)
         }
         reduce {
             state.copy(bullets = bullets)
@@ -208,6 +214,17 @@ class GameViewModel(
                     y = gliderY
                 )
             )
+        }
+    }
+
+    fun newGame() = intent {
+        framesToNewCoin = 32
+        coinDeltaY = 3
+        framesToNewBullet = 10
+        bulletDeltaY = 5
+
+        reduce {
+            GameState()
         }
     }
 }

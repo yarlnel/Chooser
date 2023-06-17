@@ -11,13 +11,13 @@ data class GameState(
     val score: Int = 0
 ) {
 
-    class GliderBullet(
+    data class GliderBullet(
         val x: Float,
         val y: Float,
         @ColorInt val color: Int
     )
 
-    class Coin(
+    data class Coin(
         val x: Float,
         val y: Float
     )
