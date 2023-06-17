@@ -39,4 +39,7 @@ class GameResourceLoader(resources: Resources) : ResourceLoader(resources) {
         Color.BLUE,
         Color.YELLOW,
     )
+
+    val textSize by lazyDimen(R.dimen.default_text_size)
+    val bulletRadius by lazyDimen(R.dimen.glider_bullet_radius)
 }
