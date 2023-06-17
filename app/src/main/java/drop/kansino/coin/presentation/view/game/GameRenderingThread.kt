@@ -1,10 +1,13 @@
 package drop.kansino.coin.presentation.view.game
 
+import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.view.SurfaceHolder
+import androidx.core.graphics.scale
+import drop.kansino.coin.R
 import drop.kansino.coin.presentation.common.game.ViewModelRenderingThread
 
 class GameRenderingThread(
@@ -18,14 +21,20 @@ class GameRenderingThread(
 
     override fun Canvas.render() {
         renderBackground()
+        renderGliderBullets()
         renderScore()
         renderGlider()
-        renderGliderBullets()
         renderCoins()
     }
 
+    private var background: Bitmap? = null
     private fun Canvas.renderBackground() {
-        drawColor(Color.BLACK)
+        if (background == null) {
+            background = resourceLoader
+                .bitmap(R.drawable.background)
+                .scale(width, height)
+        }
+        drawBitmap(background!!, 0f, 0f, bitmapPaint)
     }
 
     private val textPaint by lazy {

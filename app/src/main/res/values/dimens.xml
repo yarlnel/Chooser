@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="default_text_size">32sp</dimen>
-    <dimen name="glider_bullet_height">12dp</dimen>
-    <dimen name="glider_bullet_width">2dp</dimen>
-    <dimen name="glider_bullet_radius">1dp</dimen>
+    <dimen name="glider_bullet_height">36dp</dimen>
+    <dimen name="glider_bullet_width">6dp</dimen>
+    <dimen name="glider_bullet_radius">3dp</dimen>
 </resources>

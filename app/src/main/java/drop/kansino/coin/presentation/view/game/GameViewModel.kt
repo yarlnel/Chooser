@@ -30,27 +30,26 @@ class GameViewModel(
         resourceLoader.coin.height
     }
 
-    private var framesToNewCoin = 32
-    private var coinDeltaY = 3
+    private var framesToNewCoin = Default.FramesToNewCoin
+    private var coinDeltaY = Default.CoinDeltaY
+    private var framesToNewBullet = Default.FramesToNewBullet
+    private var bulletDeltaY = Default.BulletDeltaY
 
-    private var framesToNewBullet = 10
-    private var bulletDeltaY = 5
+    override fun onStart() {
+        setUpGlider()
+    }
+
+    private fun setUpGlider() {
+        moveGlider(width / 2f, height - gliderHeight.toFloat())
+    }
 
     override fun onFrame() = intent {
-        if (currentFrame % framesToNewCoin == 0) {
-            produceCoin()
-        }
-
         if (currentFrame % 100 == 0) {
             if (framesToNewCoin > 1) framesToNewCoin--
         }
 
         if (currentFrame > 1000 && currentFrame % 50 == 0 && coinDeltaY < 18) {
             coinDeltaY++
-        }
-
-        if (currentFrame % framesToNewBullet == 0) {
-            produceGliderBullet()
         }
 
         applyCoinsGravity()
@@ -60,14 +59,23 @@ class GameViewModel(
             clearUnusedStateModels()
         }
 
+        if (currentFrame % framesToNewCoin == 0) {
+            produceCoin()
+        }
+
+        if (currentFrame % framesToNewBullet == 0) {
+            produceGliderBullet()
+        }
+
         handleBulletIntersection()
         handleGliderIntersection()
     }
 
     private fun clearUnusedStateModels() = intent {
-        val bullets = state.bullets.filter { bullet ->
+        val bullets = state.bullets.filterNot { bullet ->
             bullet.y < -resourceLoader.bulletHeight
         }
+
         val coins = state.coins.filter { coin ->
             coin.y < height
         }
@@ -140,7 +148,7 @@ class GameViewModel(
 
     private fun applyCoinsGravity() = intent {
         val newCoins = state.coins.map { coin ->
-            GameState.Coin(coin.x, coin.y - coinDeltaY)
+            GameState.Coin(coin.x, coin.y + coinDeltaY)
         }
         reduce {
             state.copy(coins = newCoins)
@@ -152,6 +160,7 @@ class GameViewModel(
             x = (0 until (width - coinSize)).random().toFloat(),
             y = -coinSize.toFloat()
         )
+
         reduce {
             state.copy(
                 coins = state.coins + coin
@@ -195,16 +204,16 @@ class GameViewModel(
             gliderX = 0f
         }
 
-        if (gliderX + gliderWidth >= width) {
-            gliderX = width - gliderX
-        }
-
         if (gliderY <= 0f) {
             gliderY = 0f
         }
 
+        if (gliderX + gliderWidth >= width) {
+            gliderX = (width - gliderWidth).toFloat()
+        }
+
         if (gliderY + gliderHeight >= height) {
-            gliderY = height - gliderY
+            gliderY = (height - gliderHeight).toFloat()
         }
 
         reduce {
@@ -218,13 +227,22 @@ class GameViewModel(
     }
 
     fun newGame() = intent {
-        framesToNewCoin = 32
-        coinDeltaY = 3
-        framesToNewBullet = 10
-        bulletDeltaY = 5
+        framesToNewCoin = Default.FramesToNewCoin
+        coinDeltaY = Default.CoinDeltaY
+        framesToNewBullet = Default.FramesToNewBullet
+        bulletDeltaY = Default.BulletDeltaY
 
         reduce {
             GameState()
         }
+
+        setUpGlider()
+    }
+
+    private object Default {
+        const val FramesToNewCoin = 50
+        const val CoinDeltaY = 3
+        const val FramesToNewBullet = 18
+        const val BulletDeltaY = 25
     }
 }

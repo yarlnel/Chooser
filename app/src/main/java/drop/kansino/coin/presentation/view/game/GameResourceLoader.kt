@@ -13,7 +13,7 @@ class GameResourceLoader(resources: Resources) : ResourceLoader(resources) {
     val gemGlider by lazy {
         val source = bitmap(R.drawable.brill_red)
         val matrix = Matrix().apply {
-            postRotate(90f)
+            postRotate(180f)
         }
 
         Bitmap.createBitmap(
