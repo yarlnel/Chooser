@@ -14,10 +14,17 @@ abstract class RenderViewModel<STATE : Any, SIDE_EFFECT : Any>(
     override val container = container<STATE, SIDE_EFFECT>(initState)
 
     protected var currentFrame: Int = 0
+    private var isStarted: Boolean = false
+
     fun handleNewFrame() : Job = intent {
+        if (!isStarted) {
+            onStart()
+            isStarted = true
+        }
         onFrame()
         currentFrame++
     }
 
+    protected open fun onStart() {}
     protected abstract fun onFrame() : Job
 }

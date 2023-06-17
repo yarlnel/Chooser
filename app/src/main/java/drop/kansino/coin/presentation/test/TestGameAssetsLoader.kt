@@ -2,12 +2,12 @@ package drop.kansino.coin.presentation.test
 
 import android.content.res.Resources
 import drop.kansino.coin.R
-import drop.kansino.coin.presentation.common.loader.AssetLoader
+import drop.kansino.coin.presentation.common.loader.ResourceLoader
 
 
 class TestGameAssetsLoader(
     resources: Resources
-) : AssetLoader(resources) {
+) : ResourceLoader(resources) {
 
     val redGem by lazyBitmap(R.drawable.brill_red)
     val greenGem by lazyBitmap(R.drawable.brill_green)
