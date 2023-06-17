@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "639461909628",
-    "project_id": "dkon-655c0",
-    "storage_bucket": "dkon-655c0.appspot.com"
+    "project_number": "1006130123968",
+    "project_id": "betebilan",
+    "storage_bucket": "betebilan.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:639461909628:android:0da97c4af378041a8cd5f9",
+        "mobilesdk_app_id": "1:1006130123968:android:137e5e046fb7b0bcb28925",
         "android_client_info": {
-          "package_name": "drop.kansino.coin"
+          "package_name": "betesporte.color.match"
         }
       },
       "oauth_client": [
         {
-          "client_id": "639461909628-rodqkcp13m11rrdk0omud1n7bg3lkba3.apps.googleusercontent.com",
+          "client_id": "1006130123968-c1qpo762q6avn7e6pc4ldbgnsc0bllme.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDEQ215KGS20LrRwVCgbfhw7M5i_cF2_eo"
+          "current_key": "AIzaSyBA8b94YkXCTroSqulFwZxHiwLhkHvNMZs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "639461909628-rodqkcp13m11rrdk0omud1n7bg3lkba3.apps.googleusercontent.com",
+              "client_id": "1006130123968-c1qpo762q6avn7e6pc4ldbgnsc0bllme.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

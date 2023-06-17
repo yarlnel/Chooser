@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'drop.kansino.coin'
+    namespace 'betesporte.color.match'
     compileSdk 33
 
     defaultConfig {
-        applicationId "drop.kansino.coin"
+        applicationId "betesporte.color.match"
         minSdk 21
         targetSdk 33
         versionCode 1
