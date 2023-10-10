@@ -4,4 +4,10 @@
     <dimen name="glider_bullet_height">36dp</dimen>
     <dimen name="glider_bullet_width">6dp</dimen>
     <dimen name="glider_bullet_radius">3dp</dimen>
+
+    <dimen name="fortune_wheel_size">120dp</dimen>
+    <dimen name="top_fw_constraint_top_value">200dp</dimen>
+    <dimen name="default_margin">22dp</dimen>
+    <dimen name="default_box_size">32dp</dimen>
+    <dimen name="default_box_angle">12dp</dimen>
 </resources>
