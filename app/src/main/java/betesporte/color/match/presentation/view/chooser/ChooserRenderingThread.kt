@@ -17,22 +17,18 @@ class ChooserRenderingThread(
 ) : ViewModelRenderingThread<ChooserState, ChooserSideEffect>(holder, viewModel) {
 
 
-    private var width: Int = 0
-
-
-    private var height: Int = 0
-
-
-    private fun setGameSize(width: Int, height: Int) {
-        this.width = width
-        this.height = height
-    }
-
     override fun Canvas.render() {
-        renderText()
         renderBackground()
+        renderText()
         renderBoxes()
         renderFortuneWheels()
+        renderOnSelectedText()
+        renderLevel()
+        renderMarkers()
+    }
+
+    private val whitePaint = Paint().apply {
+        color = Color.BLACK
     }
 
     private val redPaint = Paint().apply {
@@ -65,7 +61,7 @@ class ChooserRenderingThread(
         drawText(
             Constants.TextFortuneColors,
             resourceLoader.defaultMargin,
-            resourceLoader.defaultMargin,
+            resourceLoader.defaultMargin * 0.8f + resourceLoader.boxSize,
             textPaint
         )
     }
@@ -73,11 +69,10 @@ class ChooserRenderingThread(
 
     private val rectFirst by lazy {
         with(resourceLoader) {
-            val rect1End = defaultMargin + boxSize
             RectF(
+                defaultMargin * 2 + textWidth,
                 defaultMargin,
-                defaultMargin,
-                rect1End,
+                defaultMargin * 2 + boxSize + textWidth,
                 defaultMargin + boxSize
             )
         }
@@ -87,9 +82,9 @@ class ChooserRenderingThread(
     private val rectSecond by lazy {
         with(resourceLoader) {
             RectF(
-                defaultMargin * 2 + boxSize,
+                rectFirst.right + defaultMargin,
                 defaultMargin,
-                (defaultMargin + boxSize) * 2,
+                rectFirst.right + defaultMargin + boxSize,
                 defaultMargin + boxSize
             )
         }
@@ -98,9 +93,9 @@ class ChooserRenderingThread(
     private val rectThird by lazy {
         with(resourceLoader) {
             RectF(
-                (defaultMargin + boxSize) * 2 + defaultMargin,
+                rectSecond.right + defaultMargin,
                 defaultMargin,
-                (defaultMargin + boxSize) * 3,
+                rectSecond.right + defaultMargin + boxSize,
                 defaultMargin + boxSize
             )
         }
@@ -138,6 +133,25 @@ class ChooserRenderingThread(
         ChooserState.FortuneWheelColor.Green -> greenPaint
     }
 
+
+    private val redTextPaint = redPaint.apply {
+        textSize = resourceLoader.bigTextSize
+    }
+
+    private val greenTextPaint = greenPaint.apply {
+        textSize = resourceLoader.bigTextSize
+    }
+
+    private val blueTextPaint = bluePaint.apply {
+        textSize = resourceLoader.bigTextSize
+    }
+
+    private fun ChooserState.FortuneWheelColor.getTextPaint() : Paint = when(this) {
+        ChooserState.FortuneWheelColor.Red -> redTextPaint
+        ChooserState.FortuneWheelColor.Green -> greenTextPaint
+        ChooserState.FortuneWheelColor.Blue -> blueTextPaint
+    }
+
     private val topFortuneWheelOval by lazy {
         val left = 40f // (width / 2) - (resourceLoader.fortuneWheelSize / 2)
         val top = resourceLoader.topFortuneWheelToTopMargin
@@ -170,8 +184,45 @@ class ChooserRenderingThread(
             left, top, right, bottom
         )
     }
+    
+    private val topMarkerRect by lazy {  
+        val left = topFortuneWheelOval.right - resourceLoader.defaultMargin
+        val top = topFortuneWheelOval.centerY() + 3f
+        val right = topFortuneWheelOval.right
+        val bottom = topFortuneWheelOval.centerY() - 3f
+        
+        RectF(
+            left, top, right, bottom
+        )
+    }
 
+    private val middleMarkerRect by lazy {
+        val left = middleFortuneWheelOval.right - resourceLoader.defaultMargin
+        val top = middleFortuneWheelOval.centerY() + 3f
+        val right = middleFortuneWheelOval.right
+        val bottom = middleFortuneWheelOval.centerY() - 3f
 
+        RectF(
+            left, top, right, bottom
+        )
+    }
+
+    private val bottomMarkerRect by lazy {
+        val left = bottomFortuneWheelOval.right - resourceLoader.defaultMargin
+        val top = bottomFortuneWheelOval.centerY() + 3f
+        val right = bottomFortuneWheelOval.right
+        val bottom = bottomFortuneWheelOval.centerY() - 3f
+
+        RectF(
+            left, top, right, bottom
+        )
+    }
+
+    private fun Canvas.renderMarkers() {
+        drawRect(topMarkerRect, whitePaint)
+        drawRect(middleMarkerRect, whitePaint)
+        drawRect(bottomMarkerRect, whitePaint)
+    }
 
     private val bitmapPaint = Paint(Paint.DITHER_FLAG)
 
@@ -179,13 +230,66 @@ class ChooserRenderingThread(
     private fun Canvas.renderBackground() {
         if (background == null) {
             background = resourceLoader
-                .bitmap(R.drawable.background)
+                .bitmap(R.drawable.background_gem_min)
                 .scale(width, height)
         }
         drawBitmap(background!!, 0f, 0f, bitmapPaint)
     }
 
     private val defaultSweepAngle = 120f
+
+    private fun ChooserState.FortuneWheelColor.getTextForColor() = when (this) {
+        ChooserState.FortuneWheelColor.Red -> "Red"
+        ChooserState.FortuneWheelColor.Green -> "Green"
+        ChooserState.FortuneWheelColor.Blue -> "Blue"
+    }
+
+    private fun Canvas.renderOnSelectedText() {
+        renderTopOnSelectedText()
+        renderMiddleOnSelectedText()
+        renderBottomOnSelectedText()
+    }
+
+    private fun Canvas.renderTopOnSelectedText() = with(state.firstFortuneWheel) {
+        if (isStopped) {
+            val text = selectedColor.getTextForColor()
+            val paint = selectedColor.getTextPaint()
+
+            drawText(
+                text,
+                topFortuneWheelOval.right + 60f,
+                topFortuneWheelOval.bottom,
+                paint
+            )
+        }
+    }
+
+    private fun Canvas.renderMiddleOnSelectedText() = with(state.secondFortuneWheel) {
+        if (isStopped) {
+            val text = selectedColor.getTextForColor()
+            val paint = selectedColor.getTextPaint()
+
+            drawText(
+                text,
+                middleFortuneWheelOval.right + 60f,
+                middleFortuneWheelOval.bottom,
+                paint
+            )
+        }
+    }
+    private fun Canvas.renderBottomOnSelectedText() = with(state.thirdFortuneWheel) {
+        if (isStopped) {
+            val text = selectedColor.getTextForColor()
+            val paint = selectedColor.getTextPaint()
+
+            drawText(
+                text,
+                bottomFortuneWheelOval.right + 60f,
+                bottomFortuneWheelOval.bottom,
+                paint
+            )
+        }
+    }
 
     private fun Canvas.renderFortuneWheels() {
         renderTopFortuneWheel()
@@ -271,7 +375,17 @@ class ChooserRenderingThread(
         )
     }
 
-
+    private fun Canvas.renderLevel() = with(state){
+        val levelTitle = "$level/$maxLevel"
+        val width = textPaint.measureText(levelTitle)
+        val x = (screenWidth - width) / 2
+        drawText(
+            levelTitle,
+            x,
+            rectFirst.bottom + resourceLoader.defaultMargin * 2,
+            textPaint
+        )
+    }
 
     private object Constants {
         const val TextFortuneColors = "Fortune colors: "

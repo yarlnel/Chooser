@@ -9,8 +9,12 @@ class ChooserView @JvmOverloads constructor(
     attrs: AttributeSet? = null
 ) : BaseGameView(context, attrs) {
 
-    private val viewModel = ChooserViewModel()
+    val viewModel = ChooserViewModel()
     private val resourceLoader = ChooserResourceLoader(resources)
+
+    override fun onSurfaceCreated() {
+        viewModel.setScreenSize(width, height)
+    }
 
     override val renderingThread = ChooserRenderingThread(
         resourceLoader = resourceLoader,

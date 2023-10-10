@@ -1,4 +1,7 @@
 package betesporte.color.match.presentation.view.chooser
 
-class ChooserSideEffect {
+sealed interface ChooserSideEffect {
+    data class GameFinished(
+        val score: Int
+    ) : ChooserSideEffect
 }

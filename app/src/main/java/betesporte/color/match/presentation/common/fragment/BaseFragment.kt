@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 
 import androidx.viewbinding.ViewBinding
 import betesporte.color.match.presentation.MainActivity
@@ -29,5 +30,9 @@ abstract class BaseFragment<VB : ViewBinding> constructor(
     fun ultimateOnBackPressed() {
         val mainActivity = requireActivity() as? MainActivity ?: return
         mainActivity.ultimateOnBackPressed()
+    }
+
+    fun toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
+        Toast.makeText(requireContext(), message, duration).show()
     }
 }
