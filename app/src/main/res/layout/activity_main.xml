@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="betesporte.color.match.presentation.MainActivity"
+    tools:context="com.PINUP.platforms.presentation.MainActivity"
     android:id="@+id/main_root"
     >
 

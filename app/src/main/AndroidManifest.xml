@@ -14,17 +14,17 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/bril_yellow"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.SportQuiz"
         android:usesCleartextTraffic="true"
         android:exported="true"
-        android:name="betesporte.color.match.App"
+        android:name="com.PINUP.platforms.App"
         tools:targetApi="31">
 
         <activity
-            android:name="betesporte.color.match.presentation.MainActivity"
+            android:name="com.PINUP.platforms.presentation.MainActivity"
             android:configChanges="orientation|screenSize"
             android:exported="true">
             <intent-filter>

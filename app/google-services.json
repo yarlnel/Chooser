@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "1006130123968",
-    "project_id": "betebilan",
-    "storage_bucket": "betebilan.appspot.com"
+    "project_number": "448918995767",
+    "project_id": "dsfgh-bb637",
+    "storage_bucket": "dsfgh-bb637.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1006130123968:android:137e5e046fb7b0bcb28925",
+        "mobilesdk_app_id": "1:448918995767:android:4bb93879fbe42dd47f50b2",
         "android_client_info": {
-          "package_name": "betesporte.color.match"
+          "package_name": "com.PINUP.platforms"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "1006130123968-c1qpo762q6avn7e6pc4ldbgnsc0bllme.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBA8b94YkXCTroSqulFwZxHiwLhkHvNMZs"
+          "current_key": "AIzaSyAmshoOxuYS3KsvDcgQiamvcI2BCODWvOo"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1006130123968-c1qpo762q6avn7e6pc4ldbgnsc0bllme.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

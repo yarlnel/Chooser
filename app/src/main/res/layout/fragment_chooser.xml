@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <betesporte.color.match.presentation.view.chooser.ChooserView
+    <com.PINUP.platforms.presentation.view.chooser.ChooserView
         android:id="@+id/chooser"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

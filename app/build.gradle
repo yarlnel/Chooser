@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'betesporte.color.match'
+    namespace 'com.PINUP.platforms'
     compileSdk 33
 
     defaultConfig {
-        applicationId "betesporte.color.match"
+        applicationId "com.PINUP.platforms"
         minSdk 21
         targetSdk 33
         versionCode 1
